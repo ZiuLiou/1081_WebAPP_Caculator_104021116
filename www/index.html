@@ -31,15 +31,74 @@ height: 0;
   </style>
 
   <script> 
+  var dotFlag = false;
+  var opType = 0;
+  var v1 = 0;
+  var newValFlag = false;
+  
+
   function btnClick(digitBtn){
       var oldVal = document.querySelector("#showResult").textContent;
       var btnVal = document.getElementById(digitBtn).value;
-      if(oldVal !=0){
-        document.getElementById("showResult").innerHTML = oldVal + btn ;
+      if( opType >0 && newValFlag ==true ){
+         document.getElementById("showResult").innerHTML = btnVal ;
+         newValFlag = false;
+      }else{
+      if( oldVal !=0 ){
+        document.getElementById("showResult").innerHTML = oldVal + btnVal ;
       }else{
         document.getElementById("showResult").innerHTML = btnVal ;
       }
   }
+  }
+  function dotBtnClick(){
+      if( dotFlag == false ){
+      var oldVal = document.querySelector("#showResult").textContent;
+      document.getElementById("showResult").innerHTML = oldVal + '.' ;
+      dotFlag = true;
+    }
+  }
+   function eqBtnClick(){
+    var result = 0;
+switch(opType){
+  case 1:
+  result = parseFloat(v1) + parseFloat( document.querySelector("#showResult").textContent);
+  break;
+  case 2:
+  result = parseFloat(v1) - parseFloat( document.querySelector("#showResult").textContent);
+  break;
+  case 3:
+  result = parseFloat(v1) * parseFloat( document.querySelector("#showResult").textContent);
+  break;
+  case 4:
+ result = parseFloat(v1) / parseFloat( document.querySelector("#showResult").textContent);
+  break;
+}document.getElementById("showResult").innerHTML = result ;
+    
+  }
+  function opBtnClick(op){
+switch(op){
+  case "btn+":
+  opType = 1;
+  newValFlag = true;
+  break;
+  case "btn-":
+  opType = 2;
+  newValFlag = true;
+  break;
+  case "btn*":
+  opType = 3;
+  newValFlag = true;
+  break;
+  case "btn/":
+  opType = 4;
+  newValFlag = true;
+  break;
+}
+v1 = document.querySelector("#showResult").textContent;
+    }
+    
+  
    </script> 
   
   <h1 class="title">104021116</h1>
@@ -96,7 +155,7 @@ height: 0;
                 id="btn/"
                 value="/"
                 class="btn btn-secondary btn-block btn1"
-                onClick="btnClick('btn/');">/</button>
+                onClick="opBtnClick('btn/');">/</button>
    </div>
    </div>
 <br>
@@ -128,7 +187,7 @@ height: 0;
                 id="btn+"
                 value="+"
                 class="btn btn-secondary btn-block btn1"
-                onClick="btnClick('btn+');">+</button>
+                onClick="opBtnClick('btn+');">+</button>
       </div>
    </div>
 <br>
@@ -159,7 +218,7 @@ height: 0;
                 id="btn-"
                 value="-"
                 class="btn btn-secondary btn-block btn1"
-                onClick="btnClick('btn-');">-</button>
+                onClick="opBtnClick('btn-');">-</button>
       </div>
    </div>
    <br>
@@ -176,21 +235,21 @@ height: 0;
                 id="btn."
                 value="."
                 class="btn btn-secondary btn-block btn1"
-                onClick="btnClick('btn.');">.</button>
+                onClick="dotBtnClick('btn.');">.</button>
       </div>
       <div class="col-3">
         <button type="button" 
                 id="btn*"
                 value="*"
                 class="btn btn-secondary btn-block btn1"
-                onClick="btnClick('btn*');">*</button>
+                onClick="opBtnClick('btn*');">*</button>
       </div>
       <div class="col-3">
         <button type="button" 
                 id="btn="
                 value="="
                 class="btn btn-secondary btn-block btn1"
-                onClick="btnClick('btn=');">=</button>
+                onClick="eqBtnClick('btn=');">=</button>
       </div>
    </div>
         <script type="text/javascript" src="cordova.js"></script>
